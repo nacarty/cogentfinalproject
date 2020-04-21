@@ -7,8 +7,10 @@ import com.carty.model.User;
 
 public interface AccountService {
 
-		public List<Account> getAllAccounts();
+		public List<Account> getAllHealthAccounts();
 		 
+		public List<Account> getAllVehicleAccounts();
+		
 		public List<Account> getAccountsByUser(User user);
 		
 		public List<Account> getAccountsByUserId(Long userId);
@@ -16,7 +18,6 @@ public interface AccountService {
 		public Account getAccountById(long accountId);
 		
 		public void saveOrUpdate(Account account);
-		
 		
 		public void delete(long accountId);
 		
