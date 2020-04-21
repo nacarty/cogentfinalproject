@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "jwt.get.token.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.get.token.uri'"
+  },
+  {
+    "name": "myrequestmapping",
+    "type": "java.lang.String",
+    "description": "A description for 'myrequestmapping'"
+  },
+  {
+    "name": "spring.user.datasource.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.user.datasource.driver-class-name'"
+  },
+  {
+    "name": "spring.user.datasource.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.user.datasource.driver-class-name'"
+  },
+  {
+    "name": "spring.jpa.hibernate.naming_strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.naming_strategy'"
+  }
+]}
