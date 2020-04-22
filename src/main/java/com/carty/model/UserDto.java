@@ -1,6 +1,7 @@
 package com.carty.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.carty.data.Address;
 
@@ -11,19 +12,21 @@ public class UserDto {
 	public String email;
 	public String password;
 	public Address address;
+	public List<Role> roles;
 	public Date dob;
 	
 	UserDto(){
 		
 	}
 
-	public UserDto(String fname, String lname, String email, String password, Address address) {
+	public UserDto(String fname, String lname, String email, String password, Address address, List<Role> roles) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
 		this.password = password;
 		this.address = address;
+		this.roles = roles;
 	}
 
 	public String getFname() {

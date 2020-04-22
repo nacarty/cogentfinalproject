@@ -30,7 +30,7 @@ public class AuthenticationController { //The sole purpose of this class is to r
 	@Autowired
 	private TokenProvider jwtTokenUtil;
 	
-	@RequestMapping(value = "/generate-token", method=RequestMethod.POST)
+	@RequestMapping(value = "/get", method=RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException{
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword() ) );

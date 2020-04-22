@@ -3,16 +3,12 @@ package com.carty.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Role {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column
 	@JsonIgnore

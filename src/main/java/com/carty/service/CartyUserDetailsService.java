@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.carty.dao.UserDao;
 import com.carty.model.User;
 
-@Service(value="cartyUDService")
+@Service(value="cartyUDService")                //java class
 public class CartyUserDetailsService implements UserDetailsService{
 
 	@Autowired

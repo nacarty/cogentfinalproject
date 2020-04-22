@@ -23,7 +23,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import com.carty.data.Account;
 import com.carty.data.Address;
 import com.carty.data.HealthPolicy;
 import com.carty.data.VehiclePolicy;
@@ -57,12 +56,12 @@ public class User implements Serializable{
 	
 	@OneToOne
 	@JoinColumn(name="address_id")//not necessary as this will automatically be done by Hibernate
-	protected Address address;
+	public Address address;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="user_roles", joinColumns= {@JoinColumn(name="user_id", referencedColumnName="id")}, 
 	                       inverseJoinColumns= {@JoinColumn(name="role_id", referencedColumnName="id")})
-	protected List<Role> roles;
+	public List<Role> roles;
 
 	@OneToOne
 	@JoinColumn(name="hpolicy_id")
@@ -73,11 +72,6 @@ public class User implements Serializable{
 	@JoinColumn(name="user_id")
 	protected List<VehiclePolicy> vpolicies = new ArrayList<>();
 		
-	
-	//Foreign Key in related table rather than join table
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id")
-	protected List<Account> accounts = new ArrayList<>();
 	
 	@Basic //basic date format
 	protected Date dob;	//dob = java.sql.Date.valueOf("2017-11-15") or new java.sql.Date(new java.util.Date().getTime());
@@ -103,7 +97,7 @@ public class User implements Serializable{
 	}
 
 	public User(String fname, String lname, String email, String password, Address address, List<Role> roles,
-			HealthPolicy hpolicy, List<VehiclePolicy> vpolicies, List<Account> accounts, Date dob) {
+			HealthPolicy hpolicy, List<VehiclePolicy> vpolicies, Date dob) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
@@ -119,7 +113,6 @@ public class User implements Serializable{
 			
 		this.vpolicies = vpolicies;
 		this.hpolicy = hpolicy;
-		this.accounts = accounts;
 		this.dob = dob;
 	}
 
@@ -222,14 +215,6 @@ public class User implements Serializable{
 	
 		return vpolicies.get(vpolicies.size()-1);
 		
-	}
-
-	public List<Account> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
 	}
 
 	public Date getDob() {

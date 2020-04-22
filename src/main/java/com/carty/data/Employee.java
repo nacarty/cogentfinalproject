@@ -39,7 +39,7 @@ public class Employee extends User{
 
 	public Employee(String fname, String lname, String email, String password, Address address, List<Role> roles,
 		   HealthPolicy hpolicy, List<VehiclePolicy> vpolicies, List<Account> accounts, Date dob, Branch branch, Job job) {
-		super(fname, lname, email, password, address, roles, hpolicy, vpolicies, accounts, dob);
+		super(fname, lname, email, password, address, roles, hpolicy, vpolicies, dob);
 	
 		this.branch = branch;
 		this.job = job;		
@@ -56,7 +56,6 @@ public class Employee extends User{
 		this.setPassword(user.getPassword());
 		this.setAddress(user.getAddress());
 		this.setRoles(user.getRoles());
-		this.setAccounts(user.getAccounts());
 		this.setDob(user.getDob());
 		this.branch = branch;
 		

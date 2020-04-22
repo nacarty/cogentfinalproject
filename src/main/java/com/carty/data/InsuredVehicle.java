@@ -4,30 +4,36 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "vehicle_id")
-public class InsuredVehicle extends Vehicle {  //we can implement serializable interface on all Entity classes
+public class InsuredVehicle{  //we can implement serializable interface on all Entity classes
 
 	@Transient
 	private static final long serialVersionUID = 7751381036533160950L;
 
-	@Column(unique = true, nullable = false, length = 45)
+	@Id
+	protected long id;
+	
+	@Column(unique=true, length = 45)
 	protected String VIN;
 	
 	@Column(nullable = false, length = 45)
 	protected String color;
 	
 	@Column(nullable = false, precision = 2)
-	protected double value = this.price;
+	protected double value;
 	
 	protected Date valuationDate = new Date(System.currentTimeMillis());
 
-	@OneToOne(mappedBy = "vehicle")
+	@OneToOne
 	protected VehiclePolicy vehiclePolicy;
+	
+	@ManyToOne
+	protected Vehicle vehicleBrand;
 	
 	public InsuredVehicle(){
 		
@@ -89,12 +95,20 @@ public class InsuredVehicle extends Vehicle {  //we can implement serializable i
 	public void setVehiclePolicy(VehiclePolicy vehiclePolicy) {
 		this.vehiclePolicy = vehiclePolicy;
 	}
+	
+
+	public Vehicle getVehicleBrand() {
+		return vehicleBrand;
+	}
+
+	public void setVehicleBrand(Vehicle vehicleBrand) {
+		this.vehicleBrand = vehicleBrand;
+	}
 
 	@Override
 	public String toString() {
 		return "InsuredVehicle [VIN=" + VIN + ", color=" + color + ", value=" + value + ", valuationDate="
-				+ valuationDate + ", vehicleId=" + vehicleId + ", manYear=" + manYear + ", make=" + make + ", model="
-				+ model + ", price=" + price + "]";
+				+ valuationDate + "]";
 	}
 
 	@Override

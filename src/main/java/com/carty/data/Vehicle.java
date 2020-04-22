@@ -1,11 +1,15 @@
 package com.carty.data;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -34,6 +38,10 @@ public class Vehicle implements Serializable{
 	
 	@Column(nullable = false, precision = 2)
 	protected double price;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="vehicle_brand")
+	List<InsuredVehicle> insuredVehicles;
 	
 	public Vehicle(){
 		

@@ -38,4 +38,54 @@ public class HealthPDB implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL)  //with Foreign Key Relationship
     @JoinColumn(name="pdetails_id")
 	protected Set<HealthPolicy> policies;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getBasePremium() {
+		return basePremium;
+	}
+
+	public void setBasePremium(double basePremium) {
+		this.basePremium = basePremium;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Set<HealthPolicy> getPolicies() {
+		return policies;
+	}
+
+	public void setPolicies(Set<HealthPolicy> policies) {
+		this.policies = policies;
+	}
+	
+	
 }

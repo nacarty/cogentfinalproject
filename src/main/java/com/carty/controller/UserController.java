@@ -8,11 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carty.model.User;
+import com.carty.model.UserDto;
 import com.carty.service.UserService;
 
 @CrossOrigin(origins="*", maxAge = 3600)
@@ -40,13 +43,17 @@ public class UserController {
 		return cartyUService.findOne(email);
 	}
 	
-	/*Implement this using plain old JDBC
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value="/name", method=RequestMethod.GET)
-	public List<User> getUsersByName(@RequestBody UserDto user){
-		return cartyUService.findByName(user.getFname(), user.getLname()); 
-		
-	} */
+	@RequestMapping(value = "/signup", method=RequestMethod.POST)
+	public User saveUser(@RequestBody UserDto user) {
+		System.out.println("Controller: "+user);
+		return cartyUService.save(user);
+	}
+	
+	@PostMapping("/signupp")
+	public User saveUser2(@RequestBody UserDto user) {
+		System.out.println("Controller: "+user);
+		return cartyUService.save(user);
+	}
 	
 	public UserController() {
 		

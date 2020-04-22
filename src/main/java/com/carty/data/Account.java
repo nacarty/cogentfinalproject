@@ -9,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import com.carty.model.User;
 
 @Entity
 public class Account implements Serializable{
@@ -39,8 +37,6 @@ public class Account implements Serializable{
 	
 	private Timestamp paymentDate = new Timestamp (System.currentTimeMillis());
 	
-	@ManyToOne  //the Account table can also maintain the User-Account relationship
-	private User user;
 	
 	public Account(){
 		
@@ -106,14 +102,6 @@ public class Account implements Serializable{
 
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	@Override
