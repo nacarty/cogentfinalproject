@@ -36,8 +36,21 @@ public class HealthPDB implements Serializable{
 	protected boolean active = true;
 	
 	@OneToMany(cascade=CascadeType.ALL)  //with Foreign Key Relationship
-    @JoinColumn(name="pdetails_id")
+    @JoinColumn(name="details_id")
 	protected Set<HealthPolicy> policies;
+	
+	
+	public HealthPDB() {
+		
+	}
+	
+
+	public HealthPDB(String name, String description, double basePremium) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.basePremium = basePremium;
+	}
 
 	public long getId() {
 		return id;

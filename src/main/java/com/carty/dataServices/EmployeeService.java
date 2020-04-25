@@ -3,15 +3,14 @@ package com.carty.dataServices;
 import java.util.List;
 
 import com.carty.data.Branch;
-import com.carty.data.Employee;
 import com.carty.data.Job;
 import com.carty.model.User;
 
-public interface EmployeeService {
+public interface EmployeeService {//Deal with users who are employees
 	
-	public List<Employee> getAllEmployees(Branch branch);
+	public List<User> getAllEmployees(Branch branch);
 	
-	public List<Employee> getAllEmployees(long branchId);
+	public List<User> getAllEmployees(long branchId);
 	
 	public List<Job> getEmployeeJobs(Branch branch);
 	
@@ -21,10 +20,10 @@ public interface EmployeeService {
 	
 	public void createEmployee();
 	
-	public void delete(Employee employee);
+	public void delete(User employee);
 	
 	public void delete(long employeeId);
 	
-	public void update(Employee employee);
+	public void update(User employee);
 
 }

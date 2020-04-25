@@ -71,6 +71,16 @@ public class HealthPolicy implements Serializable{
 			this.premium = insuredValue*costFactor; //some amount times cost factor
 
 		}
+		
+		public HealthPolicy(double insuredValue, HealthPDB hpdb) {
+			super();
+			this.creationDate = new Date(System.currentTimeMillis());
+			this.insuredValue = insuredValue;  //some amount times premium
+			this.premium = insuredValue*costFactor; //some amount times cost factor
+			this.details = hpdb;
+
+		}
+
 
 		
 		public HealthPolicy(double costFactor, double insuredValue) {
@@ -115,9 +125,9 @@ public class HealthPolicy implements Serializable{
 		public void setInsuredValue(double insuredValue) {
 			this.insuredValue = insuredValue;
 		}
-
-		public void setId(long id) {
-			this.id = id;
+  
+		public void setDetails(HealthPDB hpdb) {
+			this.details = hpdb;
 		}
 
 		public long getHealthid() {

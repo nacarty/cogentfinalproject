@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.carty.data.Address;
 import com.carty.data.Branch;
-import com.carty.data.Employee;
 import com.carty.data.HealthPDB;
 import com.carty.data.HealthPolicy;
 import com.carty.data.VehiclePDB;
@@ -15,9 +14,9 @@ public interface BranchService {
 
 	public Branch getBranchByUser(User user);
 	
-	public Branch getBranchByManager(Employee manager);
+	public Branch getBranchByManager(User manager);
 	
-	public List<Employee> getAllEmployees(Branch branch);
+	public List<User> getAllEmployees(Branch branch);
 	
 	public List<HealthPDB> getAllHealthPolicies();
 	
@@ -27,9 +26,9 @@ public interface BranchService {
 	
 	public List<VehiclePolicy> getAllVehicleCustomerPolicies();
 	
-	public Employee getManager(Branch branch);
+	public User getManager(Branch branch);
 	
-	public Branch createBranch(Address address, Employee manager);
+	public Branch createBranch(Address address, User manager);
 	
 	public Branch createBranch(Address address, long managerId);
 	

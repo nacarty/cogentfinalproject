@@ -1,5 +1,6 @@
 package com.carty.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,9 +10,14 @@ import javax.persistence.Table;
 public class Books {
 
 	@Id
+	@Column(name="bk_id")
 	private int bkId;
+	@Column(name="bk_name")
 	private String bkName;
+	@Column(name="bk_author")
 	private String bkAuthor;
+	@Column(name="bk_price")
+	private double bkPrice;
 	
 	Books(){ //Empty Constructor required
 		

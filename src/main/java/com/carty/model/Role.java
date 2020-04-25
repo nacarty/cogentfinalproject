@@ -2,6 +2,8 @@ package com.carty.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Role {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column
 	@JsonIgnore
@@ -25,9 +28,8 @@ public class Role {
     	this.id = id;
 	}
 	
-	public Role(long id, String name, String description) {
+	public Role(String name, String description) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 	}

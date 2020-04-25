@@ -120,11 +120,11 @@ public class VehiclePolicy implements Serializable{
 		public void setInsuredValue(double insuredValue) {
 			this.insuredValue = insuredValue;
 		}
-
+/*
 		public void setId(long id) {
 			this.id = id;
 		}
-
+*/
 		public long getHealthid() {
 			return id;
 		}

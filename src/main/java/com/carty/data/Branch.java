@@ -1,7 +1,6 @@
 package com.carty.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,9 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import com.carty.model.User;
 
 @Entity
 public class Branch implements Serializable{
@@ -29,9 +31,10 @@ public class Branch implements Serializable{
 	
 	protected long managerId; //I have the option of making this an Employee field but it will lead to having to double map Branch in the Employee entity  
 	
-	@OneToMany(cascade=CascadeType.ALL)  //for join with the Employee Table/Entity on Foreign Key (not join table)
-	@JoinColumn(name="branch_id")
-	protected List<Employee> employees = new ArrayList<>();
+	@OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="branch_user", joinColumns={@JoinColumn(name="branch_id", referencedColumnName="id")}
+    , inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})
+	protected List<User> users;
 	
 	@OneToOne
 	@JoinColumn(name="address_id")
@@ -42,55 +45,31 @@ public class Branch implements Serializable{
 		
 	}
 	
-	public Branch(Employee manager, Address address) {//create branch
-		this.managerId = manager.getId();
+
+	public Branch(Address address) {//create branch
+		this.managerId = 0;
+		this.address = address;
+	}
+	
+	public Branch(long managerId, Address address) {//create branch
+		this.managerId = managerId;
 		this.address = address;
 	}
 
-	public Branch(int managerId, ArrayList<Employee> employees, Address address) { //create branch
+	public Branch(int managerId, List<User> users, Address address) { //create branch
 		this.managerId = managerId;
-		this.employees = employees;
+		this.users = users;
 		this.address = address;
 	}
 
-	public void setManager(Employee manager) {
-		this.managerId = manager.getId();
-	}
-	
-	public void setManager(int managerId) {
-		this.managerId = managerId;
-	}
-	
+
 	public long getId() {
 		return id;
 	}
 
+
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public long getManager() {
-		return managerId;
-	}	
-
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(ArrayList<Employee> employees) {
-		this.employees = employees;
-	}
-	
-	public void addEmployee(Employee employee) {
-		this.employees.add(employee);
-	}
-	
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public long getManagerId() {
@@ -101,38 +80,25 @@ public class Branch implements Serializable{
 		this.managerId = managerId;
 	}
 
-	@Override
-	public String toString() {
-		return "Branch [id=" + id + ", managerId=" + managerId + ", employees=" + employees + ", address=" + address.toString()
-				+ "]";
+
+	public List<User> getUsers() {
+		return users;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + (int) (managerId ^ (managerId >>> 32));
-		return result;
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		Branch other = (Branch) obj;
-		if (this.id != other.id)
-			return false;
-		else 
-			return true;
-	}	
-	
-	
-}
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	}
 

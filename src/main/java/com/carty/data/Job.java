@@ -1,7 +1,6 @@
 package com.carty.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import com.carty.model.User;
 
 @Entity
 public class Job implements Serializable {
@@ -36,9 +38,9 @@ public class Job implements Serializable {
 	@Column(nullable = false, precision = 2)
 	protected double commission; //eg 0.12 for 1%
 	
-	@OneToMany(cascade=CascadeType.ALL)  //for join with the Employee Table/Entity
-	@JoinColumn(name="job_id")
-	protected List<Employee> employees = new ArrayList<>();
+	@OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="job_user", joinColumns={@JoinColumn(name="job_id", referencedColumnName="id")}
+    , inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})	protected List<User> users;
 	
 	public Job(){
 		
@@ -83,48 +85,16 @@ public class Job implements Serializable {
 		this.commission = commission;
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
+	@OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="job_user", joinColumns={@JoinColumn(name="job_id", referencedColumnName="id")}
+    , inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
-	@Override
-	public String toString() {
-		return "Job [id=" + id + ", title=" + title + ", baseSalary=" + baseSalary + ", commission=" + commission + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(baseSalary);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(commission);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + id;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		
-		Job other = (Job) obj;
-		if (id != other.id)
-			return false;
-		else
-			return true;
-	}
-	
-	
 }

@@ -32,7 +32,7 @@ import com.google.gson.*;//I used this to get my project to read either an array
 public class BooksController {
 	
     @Autowired
-	BookService cartyBService; 
+	BookService cartyBService; //this can be either the  
 	
     
 	@GetMapping("/allBooks")   //Therefore, this is /api/allBooks

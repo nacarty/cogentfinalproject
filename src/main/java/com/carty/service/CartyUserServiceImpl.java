@@ -49,6 +49,14 @@ public class CartyUserServiceImpl implements UserService{
 		return list;
 	}
 	
+	public User save(User user) {
+		return userDao.save(user);
+	}
+	
+	public List<User> findByFnameIgnoreCaseAndLnameIgnoreCase(String fname, String lname){
+		return userDao.findByFnameIgnoreCaseAndLnameIgnoreCase(fname, lname);
+	}
+	
 	@Override
 	public void delete(long id) {
 		userDao.deleteById(id);

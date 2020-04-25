@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -24,7 +23,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.carty.data.Address;
+import com.carty.data.Branch;
+import com.carty.data.HealthPDB;
 import com.carty.data.HealthPolicy;
+import com.carty.data.Job;
 import com.carty.data.VehiclePolicy;
 import com.carty.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -72,9 +74,11 @@ public class User implements Serializable{
 	@JoinColumn(name="user_id")
 	protected List<VehiclePolicy> vpolicies = new ArrayList<>();
 		
-	
 	@Basic //basic date format
 	protected Date dob;	//dob = java.sql.Date.valueOf("2017-11-15") or new java.sql.Date(new java.util.Date().getTime());
+	
+	@Column(unique = true, nullable = false, length = 10)
+	protected String SSN;
 	
 	public User(){
 
@@ -114,7 +118,7 @@ public class User implements Serializable{
 		this.vpolicies = vpolicies;
 		this.hpolicy = hpolicy;
 		this.dob = dob;
-	}
+	  }
 
 	public long getId() {
 		return id;
@@ -171,50 +175,21 @@ public class User implements Serializable{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-	
-	public void addRole(Role role) {
-		if (this.roles == null) {
-			this.roles = new ArrayList<>();
-		}
-		this.roles.add(role);
-	}
-	
-	public void addRoles(Set<Role> roles) {
-		
-		if (this.roles == null) {
-			this.roles = new ArrayList<>();
-		}
-		
-		this.roles.addAll(roles);
-	}
 
-
-	public HealthPolicy getHPolicy() {
+	public HealthPolicy getHpolicy() {
 		return hpolicy;
 	}
 
-	public void setHPolicy(HealthPolicy policy) {
-		this.hpolicy = policy;
+	public void setHpolicy(HealthPolicy hp) {
+		this.hpolicy = hp;
 	}
 
-	public List<VehiclePolicy> getVPolicies() {
+	public List<VehiclePolicy> getVpolicies() {
 		return vpolicies;
 	}
 
-	public void setVPolicies(List<VehiclePolicy> policies) {
-		this.vpolicies = policies;
-	}
-	
- public VehiclePolicy addHPolicy(VehiclePolicy policy) {
-		
-		if (vpolicies == null) {
-			vpolicies = new ArrayList<>();
-		}
-		
-		vpolicies.add(policy);		
-	
-		return vpolicies.get(vpolicies.size()-1);
-		
+	public void setVpolicies(List<VehiclePolicy> vpolicies) {
+		this.vpolicies = vpolicies;
 	}
 
 	public Date getDob() {
@@ -225,34 +200,13 @@ public class User implements Serializable{
 		this.dob = dob;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((fname == null) ? 0 : fname.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((lname == null) ? 0 : lname.hashCode());
-		return result;
+	public String getSSN() {
+		return SSN;
 	}
 
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		User other = (User) obj;
-		if (this.id != other.id)
-			return false;
-		else 
-			return true;
+	public void setSSN(String sSN) {
+		SSN = sSN;
 	}
-	
+
 
 }
