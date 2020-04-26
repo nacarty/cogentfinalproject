@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class VehiclePDB implements Serializable{
 
@@ -36,8 +38,27 @@ public class VehiclePDB implements Serializable{
 	protected boolean active = true;
 	
 	@OneToMany(cascade=CascadeType.ALL)  //ManyToOne with Foreign Key relation
-    @JoinColumn(name="pol_details_id")
+    @JoinColumn(name="details_id")
+	//@JsonManagedReference
 	protected Set<VehiclePolicy> policies;
+
+	public VehiclePDB() {
+		
+	}
+	
+	
+	
+	public VehiclePDB(String name, String description, double basePremium) {
+		super();
+		this.name = name;
+		this.description = description;
+		if (basePremium <= 0)
+			this.basePremium = 100;
+		else
+			this.basePremium = basePremium;
+	}
+
+
 
 	public long getId() {
 		return id;
@@ -79,10 +100,11 @@ public class VehiclePDB implements Serializable{
 		this.active = active;
 	}
 
+	/*
 	public Set<VehiclePolicy> getPolicies() {
 		return policies;
 	}
-
+  */
 	public void setPolicies(Set<VehiclePolicy> policies) {
 		this.policies = policies;
 	}

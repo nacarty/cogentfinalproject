@@ -24,7 +24,7 @@ import com.carty.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService cartyUService;  //private UserService userService;
+	private UserService cartyUService;  //private UserService userService or we can use UserServiceImpl;
 	
 	@PreAuthorize("hasRole('ROLE_CLIENT')")
 	@RequestMapping(value = "/users", method=RequestMethod.GET)

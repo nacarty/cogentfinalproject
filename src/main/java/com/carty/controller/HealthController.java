@@ -57,6 +57,13 @@ public class HealthController {
 		return hpsi.viewPolicyTypes();
 	}
 	
+	@RequestMapping(value = "/type/{tid}", method=RequestMethod.GET)
+	public HealthPDB viewPolicyType(@PathVariable(value="tid") long tid){
+		
+		return hpsi.viewPolicyType(tid);
+	}
+	
+	
 	@RequestMapping(value = "/update", method=RequestMethod.PATCH)
 	public HealthPDB updatePolicyType(@RequestBody HealthPDB hpdb){
 		

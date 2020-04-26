@@ -70,8 +70,9 @@ public class User implements Serializable{
 	protected HealthPolicy hpolicy;
 	
 	//joinTable mapping using foreign key in related table
-	@OneToMany(cascade=CascadeType.ALL)  
-	@JoinColumn(name="user_id")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="user_vehpolicy", joinColumns= {@JoinColumn(name="user_id", referencedColumnName="id")}, 
+	                       inverseJoinColumns= {@JoinColumn(name="policy_id", referencedColumnName="id")})
 	protected List<VehiclePolicy> vpolicies = new ArrayList<>();
 		
 	@Basic //basic date format

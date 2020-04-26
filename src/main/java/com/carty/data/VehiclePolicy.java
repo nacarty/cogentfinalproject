@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.carty.model.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class VehiclePolicy implements Serializable{
@@ -48,9 +49,6 @@ public class VehiclePolicy implements Serializable{
 	@Column(nullable = false)
 	protected boolean active = false; //to be approved by Manager
 	
-	@ManyToOne
-	private User user;
-	
 	@OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name="VehiclePolicy_Account", joinColumns={@JoinColumn(name="policy_id", referencedColumnName="id")}
     , inverseJoinColumns={@JoinColumn(name="account_id", referencedColumnName="id")})
@@ -58,6 +56,7 @@ public class VehiclePolicy implements Serializable{
 	
 	
 	@ManyToOne
+    //@JsonBackReference //this was helpful in preventing infinite recursion in my retrieved json. However, removing the getVehiclePolicies in the VehiclePDB.java class also did it 
 	protected VehiclePDB details;
 	
 	@OneToOne
@@ -77,7 +76,15 @@ public class VehiclePolicy implements Serializable{
 
 		}
 
-		
+		public VehiclePolicy(VehiclePDB vehPDB, double insuredValue, InsuredVehicle iVeh) {
+			super();
+			this.creationDate = new Date(System.currentTimeMillis());
+			this.insuredValue = insuredValue;  //some amount times premium
+			this.premium = insuredValue*costFactor; //some amount times cost factor
+			this.details = vehPDB;
+			this.vehicle = iVeh;
+		}
+
 		public VehiclePolicy(double costFactor, double insuredValue) {
 			super();
 			this.creationDate = new Date(System.currentTimeMillis());
@@ -125,12 +132,8 @@ public class VehiclePolicy implements Serializable{
 			this.id = id;
 		}
 */
-		public long getHealthid() {
-			return id;
-		}
-
-		public void setHealthid(int healthid) {
-			this.id = healthid;
+		public void setPolicyId(int pid) {
+			this.id = pid;
 		}		
 		
 		long getPolicyId() {
@@ -172,10 +175,39 @@ public class VehiclePolicy implements Serializable{
 			this.active = active;
 		}
 
+		public List<Account> getAccounts() {
+			return accounts;
+		}
+
+		public void setAccounts(List<Account> accounts) {
+			this.accounts = accounts;
+		}
+
+		public VehiclePDB getDetails() {
+			return details;
+		}
+
+		public void setDetails(VehiclePDB details) {
+			this.details = details;
+		}
+
+		public InsuredVehicle getVehicle() {
+			return vehicle;
+		}
+
+		public void setVehicle(InsuredVehicle vehicle) {
+			this.vehicle = vehicle;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
 		@Override
 		public String toString() {
-			return "HealthPolicy [id=" + id + ", creationDate=" + creationDate + ", insuredValue=" + insuredValue
-					+ ", costFactor=" + costFactor + ", premium=" + premium + "]";
+			return "VehiclePolicy [id=" + id + ", creationDate=" + creationDate + ", insuredValue=" + insuredValue
+					+ ", costFactor=" + costFactor + ", premium=" + premium + ", approved=" + approved + ", active="
+					+ active + ", accounts=" + accounts + ", details=" + details + ", vehicle=" + vehicle + "]";
 		}
 
 		@Override

@@ -55,6 +55,12 @@ public class HealthPolicyServiceImpl {
 		return hpdbr.findAll();
 	}
 	
+	public HealthPDB viewPolicyType(long id){
+		return hpdbr.findById(id).get();
+	}
+	
+	
+	
 	public HealthPDB updatePolicyType(HealthPDB hpdb){
 		return hpdbr.saveAndFlush(hpdb);
 	}
