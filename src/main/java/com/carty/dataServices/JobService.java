@@ -2,7 +2,6 @@ package com.carty.dataServices;
 
 import java.util.List;
 
-import com.carty.data.InsuredVehicle;
 import com.carty.data.Job;
 import com.carty.data.Vehicle;
 import com.carty.model.User;

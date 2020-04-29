@@ -50,7 +50,7 @@ public class UserController {
 		return cartyUService.save(user);
 	}
 	
-	@PostMapping("/signupp")
+	@PostMapping("/signupp")  //just to show an alternative way. ie @PostMapping vs @RequestMapping with POST mapping
 	public User saveUser2(@RequestBody UserDto user) {
 		System.out.println("Controller: "+user);
 		return cartyUService.save(user);

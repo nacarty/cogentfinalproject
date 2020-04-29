@@ -34,9 +34,9 @@ public class Account implements Serializable{
 	@Column( nullable = false, precision = 2)
 	private double amountBalance = 0.0;
 	
-	
 	private Timestamp paymentDate = new Timestamp (System.currentTimeMillis());
 	
+	private String memo = "No memo provided";
 	
 	public Account(){
 		
@@ -104,24 +104,25 @@ public class Account implements Serializable{
 		this.accountNumber = accountNumber;
 	}
 
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", accountNumber=" + accountNumber + ", amountPaid=" + amountPaid
-				+ ", amountBalance=" + amountBalance + ", paymentDate=" + paymentDate + "]";
+				+ ", amountBalance=" + amountBalance + ", paymentDate=" + paymentDate + ", memo=" + memo + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((accountNumber == null) ? 0 : accountNumber.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(amountBalance);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(amountPaid);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
+		  result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
 		return result;
 	}
 
@@ -135,7 +136,7 @@ public class Account implements Serializable{
 			return false;
 		
 		Account other = (Account) obj;
-		if (this.id != other.id)
+		if (this.paymentDate != other.paymentDate)
 			return false;
 		else 
 			return true;

@@ -1,6 +1,7 @@
 package com.carty.data;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class Branch implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	protected long managerId; //I have the option of making this an Employee field but it will lead to having to double map Branch in the Employee entity  
+	protected long managerId; //I have the option of making this a User field but it will lead to having to double map Branch in the User entity  
 	
 	@OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name="branch_user", joinColumns={@JoinColumn(name="branch_id", referencedColumnName="id")}
@@ -40,7 +41,19 @@ public class Branch implements Serializable{
 	@JoinColumn(name="address_id")
 	protected Address address;
 	
+	protected Date established = new Date(System.currentTimeMillis());  //or new java.util.Date().getTime()
 	
+	
+	public Date getEstablished() {
+		return established;
+	}
+
+
+	public void setEstablished(Date established) {
+		this.established = established;
+	}
+
+
 	Branch(){
 		
 	}
@@ -98,6 +111,43 @@ public class Branch implements Serializable{
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Branch [id=" + id + ", managerId=" + managerId + ", users=" + users + ", address=" + address
+				+ ", established=" + established + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((established == null) ? 0 : established.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Branch other = (Branch) obj;
+		if (established == null) {
+			if (other.established != null)
+				return false;
+		} else if (!established.equals(other.established))
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	}

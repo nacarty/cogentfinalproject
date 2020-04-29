@@ -3,7 +3,6 @@ package com.carty.dataServices;
 import java.util.List;
 
 import com.carty.data.Make;
-import com.carty.data.Vehicle;
 
 public interface MakesService {
 

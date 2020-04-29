@@ -47,6 +47,7 @@ public class BranchServiceImpl implements BranchService{
 	}
 	
 
+	@Override
 	public void delete(Branch branch) {
 		
 		br.delete(branch);
@@ -117,36 +118,44 @@ public class BranchServiceImpl implements BranchService{
 		
 	}
 
+	@Override
 	public Branch getBranchByUser(User user) {
 	   return null;
     }
 	
+	@Override
 	public Branch getBranchByManager(User manager){
 		return null;
 	}
 	
+	@Override
 	public List<User> getAllEmployees(Branch branch){
 		return null;
 	}
 	
+	@Override
 	public List<HealthPDB> getAllHealthPolicies(){
 		return null;
 	}
 	
+	@Override
 	public List<VehiclePDB> getAllVehiclePolicies(){
 		return null;
 	}
 	
-    public List<HealthPolicy> getAllHealthCustomerPolicies(){
+    @Override
+	public List<HealthPolicy> getAllHealthCustomerPolicies(){
     	return null;
     }
 	
+	@Override
 	public List<VehiclePolicy> getAllVehicleCustomerPolicies(){
 		return null;
 	}
 	
 	
 	
+	@Override
 	public void update(long branchId){
 	
 	}

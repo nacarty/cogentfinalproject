@@ -92,9 +92,11 @@ public class HealthPDB implements Serializable{
 		this.active = active;
 	}
 
+	/*
 	public Set<HealthPolicy> getPolicies() {
 		return policies;
 	}
+	*/
 
 	public void setPolicies(Set<HealthPolicy> policies) {
 		this.policies = policies;

@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class InsuredVehicle{  //we can implement serializable interface on all Entity classes
 
@@ -69,6 +67,15 @@ public class InsuredVehicle{  //we can implement serializable interface on all E
 		this.value = value;
 		this.valuationDate = valuationDate;
 		this.vehiclePolicy = vehiclePolicy;
+	}
+
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getVIN() {

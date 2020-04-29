@@ -27,7 +27,7 @@ public class HealthController {
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
 	public User addUserPolicy(@RequestParam("uid")  long uid, 
 							  @RequestParam("hpid")  long hpid,
-							  @RequestParam("inval")  long inval) {
+							  @RequestParam("inval")  double inval) {
 	
 		return hpsi.addPolicyToUser(uid, hpid, inval);
 	

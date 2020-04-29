@@ -18,9 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import com.carty.model.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 public class VehiclePolicy implements Serializable{
 

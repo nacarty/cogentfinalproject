@@ -11,6 +11,7 @@ public class UserDto {
 	public String lname;
 	public String email;
 	public String password;
+	public String SSN;
 	public Address address;
 	public List<Role> roles;
 	public Date dob;
@@ -19,12 +20,13 @@ public class UserDto {
 		
 	}
 
-	public UserDto(String fname, String lname, String email, String password, Address address, List<Role> roles) {
+	public UserDto(String fname, String lname, String email, String password, String SSN, Address address, List<Role> roles) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
 		this.password = password;
+		this.SSN = SSN;
 		this.address = address;
 		this.roles = roles;
 	}

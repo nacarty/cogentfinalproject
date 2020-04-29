@@ -15,6 +15,7 @@ public interface RoleRepo extends JpaRepository<Role, Long> {
 
 	List<Role> findByIdLessThanEqual(long id);
 	List<Role> findByIdLessThan(long id);
+	@Override
 	List<Role> findAll();
 	List<User> findUsersById(long id);
 }

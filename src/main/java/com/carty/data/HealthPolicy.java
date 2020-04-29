@@ -176,11 +176,31 @@ public class HealthPolicy implements Serializable{
 		public void setActive(boolean active) {
 			this.active = active;
 		}
+		
+
+		public List<Account> getAccounts() {
+			return accounts;
+		}
+
+		public void setAccounts(List<Account> accounts) {
+			this.accounts = accounts;
+		}
+
+		public HealthPDB getDetails() {
+			return details;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		
 
 		@Override
 		public String toString() {
 			return "HealthPolicy [id=" + id + ", creationDate=" + creationDate + ", insuredValue=" + insuredValue
-					+ ", costFactor=" + costFactor + ", premium=" + premium + "]";
+					+ ", costFactor=" + costFactor + ", premium=" + premium + ", approved=" + approved + ", active="
+					+ active + ", details=" + details + ", accounts=" + accounts + "]";
 		}
 
 		@Override

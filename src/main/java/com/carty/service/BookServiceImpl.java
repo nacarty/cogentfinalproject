@@ -17,7 +17,8 @@ public class BookServiceImpl implements BookService{  //implements UserDetailsSe
 	@Autowired
 	BookRepo repo;
 	
-	 @PreAuthorize("hasRole('USER')")
+	 @Override
+	@PreAuthorize("hasRole('USER')")
 	public List<Books> getAllBooks(){
 		List<Books> list = new ArrayList<>();
 		repo.findAll().forEach(books1->list.add(books1));
@@ -25,27 +26,32 @@ public class BookServiceImpl implements BookService{  //implements UserDetailsSe
 		
 	}
 	
-	 @PreAuthorize("hasRole('USER')")
+	 @Override
+	@PreAuthorize("hasRole('USER')")
 	public Books getBooksById(int bkId) {
 		return repo.findById(bkId).get();
 	}
 	
-	 @PreAuthorize("hasRole('ADMIN')")
+	 @Override
+	@PreAuthorize("hasRole('ADMIN')")
 	public void saveOrUpdate(Books books) {
 		repo.save(books);
 	}
 	
-	 @PreAuthorize("hasRole('ADMIN')")
+	 @Override
+	@PreAuthorize("hasRole('ADMIN')")
 	public void delete(int id) {
 		repo.deleteById(id);
 	}
 	
-	 @PreAuthorize("hasRole('ADMIN')")
+	 @Override
+	@PreAuthorize("hasRole('ADMIN')")
 	public void update(Books books, int id) {
 		repo.save(books);
 	}
 
-	 @PreAuthorize("hasRole('ADMIN')")
+	 @Override
+	@PreAuthorize("hasRole('ADMIN')")
 	public void saveAll(List<Books> b) {
 	
 		repo.saveAll(b);

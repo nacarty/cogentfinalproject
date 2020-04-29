@@ -19,6 +19,7 @@ public class CartyUserDetailsService implements UserDetailsService{
 	@Autowired
 	private UserDao userDao;
 	
+@Override
 public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
 	User user = userDao.findByEmail(email);
 	if (user == null) {

@@ -30,17 +30,16 @@ public class CartyUserServiceImpl implements UserService{
 	AddressRepo addressRepo;
 	
 	@Autowired
+	CartyMailService cms;
+	
+	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
+	
 	
 	CartyUserServiceImpl(){
 		
 	}
 	
-	
-	public List<User> tryMethod(String fname, String lname) {
-		
-		return null; //userDao.findByName(fname, lname);
-	}
 	
 	@Override
 	public List<User> findAll(){
@@ -50,9 +49,11 @@ public class CartyUserServiceImpl implements UserService{
 	}
 	
 	public User save(User user) {
+		
 		return userDao.save(user);
 	}
 	
+	@Override
 	public List<User> findByFnameIgnoreCaseAndLnameIgnoreCase(String fname, String lname){
 		return userDao.findByFnameIgnoreCaseAndLnameIgnoreCase(fname, lname);
 	}
@@ -72,10 +73,12 @@ public class CartyUserServiceImpl implements UserService{
 		return userDao.findById(id).get();  //.get() prevents us from having to cast to user
 	}
 	
+	@Override
 	public User save(UserDto user) {
 		
 		Address address = addressRepo.save(user.address);
-		User newUser = new User(user.fname, user.lname, user.email, 
+		
+		User newUser = new User(user.fname, user.lname, user.email, user.SSN,
 				           bcryptEncoder.encode(user.password), address, user.dob);
 		
 		List<com.carty.model.Role> roles = new ArrayList<>();
@@ -85,7 +88,7 @@ public class CartyUserServiceImpl implements UserService{
 		roles.add(role);
 		
 		newUser.roles = roles;
-	
+	    cms.sendEmail(user);
 		return userDao.save(newUser);
 	}
 }

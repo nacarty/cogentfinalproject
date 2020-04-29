@@ -19,9 +19,7 @@ import com.carty.model.User;
 @Entity
 public class Job implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	@Transient
 	private static final long serialVersionUID = 4251991558261545397L;
 

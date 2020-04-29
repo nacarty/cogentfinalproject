@@ -23,10 +23,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.carty.data.Address;
-import com.carty.data.Branch;
-import com.carty.data.HealthPDB;
 import com.carty.data.HealthPolicy;
-import com.carty.data.Job;
 import com.carty.data.VehiclePolicy;
 import com.carty.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -85,14 +82,16 @@ public class User implements Serializable{
 
 	}
 
-	public User(String fname, String lname, String email, String password, Address address, Date dob) {
+	public User(String fname, String lname, String email, String SSN, String password, Address address, Date dob) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
+		this.SSN = SSN;
 		this.password = password;
 		this.address = address;
 		this.dob = dob;
+	
 		
 		if (this.roles == null) {
 			this.roles = new ArrayList<>();
