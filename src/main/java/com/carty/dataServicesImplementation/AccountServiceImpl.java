@@ -1,5 +1,6 @@
 package com.carty.dataServicesImplementation;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,9 @@ public class AccountServiceImpl {
 	}
 	
 	public List<Account> getHealthAccounts(long hPolicyId){
-		HealthPolicy hp = hpr.findById(hPolicyId).get();
+		System.out.println("**************We are here in ACI searching for the Hpolicy Accounts***************");
+		HealthPolicy hp = hpsi.viewPolicy(hPolicyId);
+		System.out.println(hp);
 		return hp.getAccounts();
 	}
 	
@@ -47,20 +50,30 @@ public class AccountServiceImpl {
 		return vp.getAccounts();
 	}
 	
-	public Account makeHealthPayment(long userId, double payment) {
-		HealthPolicy hp = hpsi.viewUserPolicy(userId);
+	public Account makeHealthPayment(long hPolicyId, double payment, String memo) {
+		HealthPolicy hp = hpsi.viewPolicy(hPolicyId);
 		double balance = hp.getPremium();
 		long id = 1;
 		List<Account> accounts = hp.getAccounts();
-		
+		System.out.print("These are the health accounts:"+ accounts ); 
 		if (!accounts.isEmpty()) {
-		  //Collections.sort(accounts);
+		  Collections.sort(accounts, (a1, a2)->{ 
+			  if (a1.getPaymentDate().before(a2.getPaymentDate()))
+				  return -1;
+			  else 
+				  return 1;
+					  });
 		  Account last = accounts.get(accounts.size() - 1);
+
 		  balance = last.getAmountBalance(); 
 		  id = last.getId() + 1;
+		  
+		  System.out.print("Accounts should have been sorted.");
 		}
 		
 		Account acc = new Account("HE:"+id, payment, balance-payment);
+		if (memo.length() > 0)
+		   acc.setMemo(memo);
 		acc = accr.saveAndFlush(acc);
 		accounts.add(acc);
 		hp.setAccounts(accounts);
@@ -69,20 +82,60 @@ public class AccountServiceImpl {
 		return acc;
 	}
 	
-	public Account makeVehiclePayment(long vPolicyId, double payment) {
+	
+	public Account makeUserHealthPayment(long userId, double payment, String memo) {
+		HealthPolicy hp = hpsi.viewUserPolicy(userId);
+		double balance = hp.getPremium();
+		long id = 1;
+		List<Account> accounts = hp.getAccounts();
+		
+		if (!accounts.isEmpty()) {
+			Collections.sort(accounts, (a1, a2)->{ 
+				  if (a1.getPaymentDate().before(a2.getPaymentDate()))
+					  return -1;
+				  else 
+					  return 1;
+						  });
+		
+		  Account last = accounts.get(accounts.size() - 1);
+		  balance = last.getAmountBalance(); 
+		  id = last.getId() + 1;
+		}
+		
+		Account acc = new Account("HE:"+id, payment, balance-payment);
+		if (memo.length() > 0)
+		   acc.setMemo(memo);
+		acc = accr.saveAndFlush(acc);
+		accounts.add(acc);
+		hp.setAccounts(accounts);
+		
+		hpr.saveAndFlush(hp);
+		
+		return acc;
+	}
+	
+	public Account makeVehiclePayment(long vPolicyId, double payment, String memo) {
 		VehiclePolicy vp = vpsi.getPolicy(vPolicyId);
 		double balance = vp.getPremium();
 		long id = 1;
 		List<Account> accounts = vp.getAccounts();
 		
 		if (!accounts.isEmpty()) {
-		  //Collections.sort(accounts);
+			Collections.sort(accounts, (a1, a2)->{ 
+				  if (a1.getPaymentDate().before(a2.getPaymentDate()))
+					  return -1;
+				  else 
+					  return 1;
+						  });
+			
 		  Account last = accounts.get(accounts.size() - 1);
 		  balance = last.getAmountBalance(); 
 		  id = last.getId() + 1;
 		}
 		
 		Account acc = new Account("VE-"+vPolicyId+"-"+id, payment, balance-payment);
+		if (memo.length() > 0)
+		     acc.setMemo(memo);
 		acc = accr.saveAndFlush(acc);
 		accounts.add(acc);
 		vp.setAccounts(accounts);

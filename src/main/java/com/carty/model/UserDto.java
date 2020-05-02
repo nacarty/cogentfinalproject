@@ -15,6 +15,7 @@ public class UserDto {
 	public Address address;
 	public List<Role> roles;
 	public Date dob;
+	public long agentId;
 	
 	UserDto(){
 		
@@ -71,11 +72,45 @@ public class UserDto {
 		this.address = address;
 	}
 
+	
+	public String getSSN() {
+		return SSN;
+	}
+
+	public void setSSN(String sSN) {
+		SSN = sSN;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public long getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(long agentId) {
+		this.agentId = agentId;
+	}
+
 	@Override
 	public String toString() {
-		return "UserDto [fname=" + fname + ", lname=" + lname + ", email=" + email + ", password=" + password
-				+ ", address=" + address.toString() + "]";
+		return "UserDto [fname=" + fname + ", lname=" + lname + ", email=" + email + ", password=" + password + ", SSN="
+				+ SSN + ", address=" + address + ", roles=" + roles + ", dob=" + dob + ", agentId=" + agentId + "]";
 	}
+
 	
 	
 	}

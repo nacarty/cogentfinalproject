@@ -57,6 +57,10 @@ public class CartyUserServiceImpl implements UserService{
 	public List<User> findByFnameIgnoreCaseAndLnameIgnoreCase(String fname, String lname){
 		return userDao.findByFnameIgnoreCaseAndLnameIgnoreCase(fname, lname);
 	}
+	@Override
+	public List<User> findByAgentid(Long id){
+		return userDao.findByAgentId(id);
+	}
 	
 	@Override
 	public void delete(long id) {
@@ -67,6 +71,8 @@ public class CartyUserServiceImpl implements UserService{
 	public User findOne(String email) {
 		return userDao.findByEmail(email);
 	}
+	
+	
 	
 	@Override
 	public User findById(Long id) {
@@ -80,6 +86,7 @@ public class CartyUserServiceImpl implements UserService{
 		
 		User newUser = new User(user.fname, user.lname, user.email, user.SSN,
 				           bcryptEncoder.encode(user.password), address, user.dob);
+		newUser.setAgentId(user.agentId);
 		
 		List<com.carty.model.Role> roles = new ArrayList<>();
 		
@@ -90,5 +97,10 @@ public class CartyUserServiceImpl implements UserService{
 		newUser.roles = roles;
 	    cms.sendEmail(user);
 		return userDao.save(newUser);
+	}
+
+	@Override
+	public long getUserId(String email) {
+		return findOne(email).getId();
 	}
 }

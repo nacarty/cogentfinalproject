@@ -33,6 +33,12 @@ public class VehicleController {
 		return vspi.addPolicyToUser(userId, vehiclePDBId, insuredValue, iVeh);
    }
 	
+	@RequestMapping(value="/view/{uid}", method=RequestMethod.GET)
+	public List<VehiclePolicy> getPolicies(@PathVariable(value="uid") long uid){
+		
+		return vspi.getPolicies(uid);
+	}
+	
 	@RequestMapping(value="/insid/{inid}", method=RequestMethod.GET)
     public InsuredVehicle getInsuredVehicle(@PathVariable("insid") long id) {
 		

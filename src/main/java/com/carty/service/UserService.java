@@ -14,8 +14,10 @@ public interface UserService{
 		List<User> findAll();
 		void delete(long id);
 		User findOne(String email);
+		long getUserId(String email);
 		User findById(Long id); //could be long instead of Long
 		List<User> findByFnameIgnoreCaseAndLnameIgnoreCase(String fname, String lname);
-		//List<User> findByName(String fname, String lname); //already defined in the DAO
+		List<User> findByAgentid(Long id);
+		
 	
 }

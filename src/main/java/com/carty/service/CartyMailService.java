@@ -38,13 +38,18 @@ public class CartyMailService {
 				"<tr>\r\n" + 
 				"<td style=\"width: 159.34px;\">Name</td>\r\n" + 
 				"<td style=\"width: 159.33px;\">"+user.fname+"</td>\r\n" + 
-				"<td style=\"width: 159.33px;\">"+user.dob+"</td>\r\n" + 
+				"<td style=\"width: 159.33px;\"></td>\r\n" + 
 				"</tr>\r\n" + 
 				"<tr>\r\n" + 
 				"<td style=\"width: 159.34px;\">Email</td>\r\n" + 
 				"<td style=\"width: 159.33px;\">"+user.email+"</td>\r\n" + 
 				"<td style=\"width: 159.33px;\">&nbsp;</td>\r\n" + 
 				"</tr>\r\n" + 
+				"<tr>\r\n" + 
+				"<td style=\"width: 159.34px;\">Password</td>\r\n" + 
+				"<td style=\"width: 159.33px;\">"+user.password+"</td>\r\n" + 
+				"<td style=\"width: 159.33px;\">&nbsp;</td>\r\n" + 
+				"</tr>\r\n" +
 				"<tr>\r\n" + 
 				"<td style=\"width: 159.34px;\">SSN</td>\r\n" + 
 				"<td style=\"width: 159.33px;\">"+user.SSN+"</td>\r\n" + 
@@ -54,12 +59,7 @@ public class CartyMailService {
 				"<td style=\"width: 159.34px;\">DOB</td>\r\n" + 
 				"<td style=\"width: 159.33px;\">"+user.dob+"</td>\r\n" + 
 				"<td style=\"width: 159.33px;\">&nbsp;</td>\r\n" + 
-				"</tr>\r\n" + 
-				"<tr>\r\n" + 
-				"<td style=\"width: 159.34px;\">&nbsp;</td>\r\n" + 
-				"<td style=\"width: 159.33px;\">&nbsp;</td>\r\n" + 
-				"<td style=\"width: 159.33px;\">&nbsp;</td>\r\n" + 
-				"</tr>\r\n" + 
+				"</tr>\r\n" +  
 				"<tr>\r\n" + 
 				"<td style=\"width: 490px;\" colspan=\"3\">ADDRESS</td>\r\n" + 
 				"</tr>\r\n" + 

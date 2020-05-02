@@ -45,6 +45,11 @@ public class HealthPolicyServiceImpl {
 		return usi.findById(userId).getHpolicy();
 	}
 	
+    public HealthPolicy viewPolicy(long hPolicyId) {
+		System.out.println("**************We are here in HPSI searching for the Hpolicy***************");
+		return hpr.findById(hPolicyId).get();
+	}
+	
 	public HealthPDB addNewPolicyType(String name, String description, double basePremium) {
 		
 		return hpdbr.saveAndFlush(new HealthPDB(name, description, basePremium));

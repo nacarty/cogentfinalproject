@@ -1,20 +1,18 @@
 package com.carty.data;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.carty.model.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 public class Job implements Serializable {
@@ -31,14 +29,15 @@ public class Job implements Serializable {
 	protected String title;
 	
 	@Column(nullable = false, precision = 2)
-	protected double baseSalary;
+	protected double baseSalary = 2000;
 	
 	@Column(nullable = false, precision = 2)
-	protected double commission; //eg 0.12 for 1%
+	protected double commission = 0.05; //eg 0.12 for 12%
 	
-	@OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="job_user", joinColumns={@JoinColumn(name="job_id", referencedColumnName="id")}
-    , inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})	protected List<User> users;
+	@OneToOne
+	@JsonBackReference
+	protected User user;
+	
 	
 	public Job(){
 		
@@ -82,17 +81,15 @@ public class Job implements Serializable {
 	public void setCommission(double commission) {
 		this.commission = commission;
 	}
-
-	@OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="job_user", joinColumns={@JoinColumn(name="job_id", referencedColumnName="id")}
-    , inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})
-	public List<User> getUsers() {
-		return users;
+  
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
+	
 		
 }

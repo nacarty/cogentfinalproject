@@ -26,6 +26,17 @@ public class UserController {
 	@Autowired
 	private UserService cartyUService;  //private UserService userService or we can use UserServiceImpl;
 	
+	
+	@RequestMapping(value = "/getid", method=RequestMethod.GET)
+	public long getUseId(@RequestParam("email") String email) {
+		return cartyUService.getUserId(email);
+	}
+	
+	@RequestMapping(value = "/agent/{uid}", method=RequestMethod.GET)
+	public List<User> findByAgentid(@PathVariable("uid") long uid){
+		 return cartyUService.findByAgentid(uid);
+	}
+	
 	@PreAuthorize("hasRole('ROLE_CLIENT')")
 	@RequestMapping(value = "/users", method=RequestMethod.GET)
 	public List<User> listUser(){

@@ -1,5 +1,6 @@
 package com.carty.dataServicesImplementation;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,22 @@ public class VehiclePolicyServiceImpl {
 	public VehiclePolicy updatePolicy(VehiclePolicy vp) {//user policy
 		
 		return vpr.save(vp);
+	}
+	
+	public List<VehiclePolicy> getPolicies(long userId){
+		User user = usi.findById(userId);
+		List<VehiclePolicy> list =user.getVpolicies();
+				
+		 if (!list.isEmpty()) {
+				Collections.sort(list, (p1, p2)->{ 
+					  if (p1.getId() < (p2.getId()))
+						  return -1;
+					  else 
+						  return 1;
+							  });
+				}
+				
+		 return list;
 	}
 	
 	public InsuredVehicle updateInsuredVehicle(InsuredVehicle inveh) {

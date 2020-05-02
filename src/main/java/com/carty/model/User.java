@@ -24,9 +24,12 @@ import javax.persistence.Transient;
 
 import com.carty.data.Address;
 import com.carty.data.HealthPolicy;
+import com.carty.data.Job;
 import com.carty.data.VehiclePolicy;
 import com.carty.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -75,8 +78,15 @@ public class User implements Serializable{
 	@Basic //basic date format
 	protected Date dob;	//dob = java.sql.Date.valueOf("2017-11-15") or new java.sql.Date(new java.util.Date().getTime());
 	
+	protected long agentId;
+	
 	@Column(unique = true, nullable = false, length = 10)
 	protected String SSN;
+	
+	@OneToOne
+	@JoinColumn(name="job_id")
+	@JsonManagedReference  //we can also simply eliminate the getUser method in the Job entity
+	protected Job job;
 	
 	public User(){
 
@@ -208,5 +218,20 @@ public class User implements Serializable{
 		SSN = sSN;
 	}
 
+	public long getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(long agentId) {
+		this.agentId = agentId;
+	}
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
 
 }
