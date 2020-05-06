@@ -103,7 +103,10 @@ public class Branch implements Serializable{
 		this.users = users;
 	}
 
-
+    public void addUser(User user) {
+    	this.users.add(user);
+    }
+    
 	public Address getAddress() {
 		return address;
 	}

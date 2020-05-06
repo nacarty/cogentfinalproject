@@ -1,5 +1,7 @@
 package com.carty.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.carty.data.Branch;
 import com.carty.dataServicesImplementation.BranchServiceImpl;
 import com.carty.model.User;
+import com.carty.model.UserDto;
 
 
 @CrossOrigin(origins="*", maxAge = 3600)
@@ -48,10 +51,19 @@ public class BranchController {
 		return bsi.createBranch(br);
 	}
 	@RequestMapping(value = "/adduid", method=RequestMethod.POST)
-	public User addUser(@RequestParam("uid") long userId, @RequestParam("bid") long branchId) {
-		
-		return bsi.addUser(userId, branchId);
+	public User addUserById(@RequestParam("uid") long userId, 
+			                @RequestParam("bid") long branchId) {
+
+		return bsi.addUserById(userId, branchId);
 	}
+	
+
+	@RequestMapping(value = "/adduser", method=RequestMethod.POST)
+	public User addUser(@RequestBody UserDto user, @RequestParam("bid") long branchId) {
+		
+		return bsi.addUser(user, branchId);
+	}
+	
 	
 	@RequestMapping(value = "/delete/{id}", method=RequestMethod.POST)
 	public void deleteBranch(@PathVariable(value="bid") long branchId) { //Send a branch will no employees, but with a Branch Manager's ID
@@ -60,12 +72,16 @@ public class BranchController {
 		
 	}
 	
-	@RequestMapping(value = "/adduser", method=RequestMethod.POST)
-	public void addUser(@RequestBody User user, @RequestParam("bid") long branchId) {
-		
-		bsi.addUser(user, branchId);
+	@RequestMapping(value="/user/{uid}", method=RequestMethod.GET)
+	public long getUserBranch(@PathVariable("uid") long uid) {
+		 return bsi.getUserBranch(uid);
 	}
 	
+	@RequestMapping(value="/uid/{uid}", method=RequestMethod.GET)
+	public Branch getBranchByUser(@PathVariable("uid") long uid) {
+		 long bid = bsi.getUserBranch(uid);
+		 return bsi.getBranchById(bid);
+	}
 	
 }
 

@@ -21,8 +21,6 @@ public class Make implements Serializable{
 	private static final long serialVersionUID = -2787230970549118199L;
 
 	@Id
-	@Column(nullable=false, unique = true)
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	protected int makeid;
 	
 	@Column(nullable=false, unique = true, length = 45)

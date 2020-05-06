@@ -49,9 +49,9 @@ public class UserController {
 		return cartyUService.findById(id);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_CLIENT')")
-	@RequestMapping(value = "/email/{email}", method=RequestMethod.GET)
-	public User getUserByEmail(@PathVariable(value = "email") String email) {
+	//@PreAuthorize("hasRole('ROLE_CLIENT')")
+	@RequestMapping(value = "/email", method=RequestMethod.GET)
+	public User getUserByEmail(@RequestParam("email") String email) {
 		return cartyUService.findOne(email);
 	}
 	
@@ -72,7 +72,10 @@ public class UserController {
 	List<User> findByFnameIgnoreCaseAndLnameIgnoreCase(@RequestParam("fname") String fname, @RequestParam("lname") String lname){
 		return cartyUService.findByFnameIgnoreCaseAndLnameIgnoreCase(fname, lname);
 	}
-	public UserController() {
+	
+	@RequestMapping(value = "/userrole/{rid}", method=RequestMethod.GET)
+	public List<User> findByRoles(@PathVariable("rid") long rid) {
 		
+		return cartyUService.findByRoles((long)rid);
 	}
 }

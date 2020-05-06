@@ -50,6 +50,13 @@ public class HealthPolicyServiceImpl {
 		return hpr.findById(hPolicyId).get();
 	}
 	
+    public boolean toggleHealthPolicyApproval(long hPolicyId, boolean status){
+    	HealthPolicy hp = hpr.findById(hPolicyId).get();
+    	hp.setApproved(status);
+    	hp.setActive(status);
+    	hp = hpr.saveAndFlush(hp);
+    	return hp.getApproved();
+    }
 	public HealthPDB addNewPolicyType(String name, String description, double basePremium) {
 		
 		return hpdbr.saveAndFlush(new HealthPDB(name, description, basePremium));

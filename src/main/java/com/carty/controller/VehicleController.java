@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.carty.data.HealthPolicy;
 import com.carty.data.InsuredVehicle;
+import com.carty.data.Make;
+import com.carty.data.Models;
+import com.carty.data.Vehicle;
 import com.carty.data.VehiclePDB;
 import com.carty.data.VehiclePolicy;
 import com.carty.dataServicesImplementation.VehiclePolicyServiceImpl;
@@ -27,11 +31,18 @@ public class VehicleController {
 	
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public User addPolicyToUser(@RequestParam("uid") long userId, @RequestParam("vpid") long vehiclePDBId, 
+	public HealthPolicy addPolicyToUser(@RequestParam("uid") long userId, @RequestParam("vpid") long vehiclePDBId, 
 							    @RequestParam("inval") double insuredValue, @RequestBody InsuredVehicle iVeh) {
 
-		return vspi.addPolicyToUser(userId, vehiclePDBId, insuredValue, iVeh);
+		return vspi.addPolicyToUser(userId, vehiclePDBId, insuredValue, iVeh).getHpolicy();
    }
+	
+	@RequestMapping(value="approve", method=RequestMethod.GET)
+	public boolean toggleHealthPolicyApproval(@RequestParam("vpid") long vpid, @RequestParam("status") boolean status) {
+		
+		return vspi.toggleHealthPolicyApproval(vpid, status);
+	}
+
 	
 	@RequestMapping(value="/view/{uid}", method=RequestMethod.GET)
 	public List<VehiclePolicy> getPolicies(@PathVariable(value="uid") long uid){
@@ -71,7 +82,7 @@ public class VehicleController {
 		return vspi.deletePolicy(uid, vpid);
 	}
 	
-	@RequestMapping(value="/pdb", method=RequestMethod.GET)
+	@RequestMapping(value="/types", method=RequestMethod.GET)
 	public List<VehiclePDB> viewPolicyTypes(){
 		return vspi.viewPolicyTypes();
 	}
@@ -86,4 +97,33 @@ public class VehicleController {
 	
 	  return vspi.addPolicyType(vpdb.getName(), vpdb.getDescription(), vpdb.getBasePremium());
     }
+	
+	@RequestMapping(value="/makes", method=RequestMethod.GET)
+	public List<Make> findAllMakes(){
+		return vspi.findAllMakes();
+		
+	}
+	
+	@RequestMapping(value="/allmakes", method=RequestMethod.GET)
+	public List<Make> findAll(){
+		return vspi.findMakes();
+		
+	}
+	
+	@RequestMapping(value="/models", method=RequestMethod.GET)
+	public List<Models> findModelsByMake(@RequestParam("make") String make){
+		return vspi.findModelsByMake(make);
+	}
+	
+	@RequestMapping(value="/brands", method=RequestMethod.GET)
+	public List<Vehicle> findByMakeAndModel(@RequestParam("make") String make, 
+										    @RequestParam("model")String model){
+		return vspi.findByMakeAndModel(make, model);
+	}
+	
+	@RequestMapping(value="/brands2", method=RequestMethod.GET)
+	public List<Vehicle> findByMakeAndModel(@RequestParam("model") String model){
+										  
+		return vspi.findVehicleByModel(model);
+	}
 }

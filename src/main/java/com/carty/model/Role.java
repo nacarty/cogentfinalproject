@@ -21,7 +21,7 @@ public class Role {
 		
 	}
 	
-    public Role(int id){
+    public Role(long id){
 		
     	this.id = id;
 	}
@@ -36,6 +36,7 @@ public class Role {
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}

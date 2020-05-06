@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.carty.model.Role;
 import com.carty.model.User;
 import com.carty.model.UserDto;
 import com.carty.repo.RoleRepo;
@@ -49,7 +50,7 @@ public class CartyUserServiceImpl implements UserService{
 	}
 	
 	public User save(User user) {
-		
+		//Use method below to save new users
 		return userDao.save(user);
 	}
 	
@@ -83,18 +84,19 @@ public class CartyUserServiceImpl implements UserService{
 	public User save(UserDto user) {
 		
 		Address address = addressRepo.save(user.address);
-		
+		List<Role> sentroles = user.roles;
 		User newUser = new User(user.fname, user.lname, user.email, user.SSN,
 				           bcryptEncoder.encode(user.password), address, user.dob);
 		newUser.setAgentId(user.agentId);
 		
-		List<com.carty.model.Role> roles = new ArrayList<>();
+		List<Role> roles = new ArrayList<>();
 		
-		com.carty.model.Role role = roleRepo.findById(1L).get();
+		for (long i= 1; i <= sentroles.size(); i++) {		 
+			Role role = roleRepo.findById(i).get();
+		    roles.add(role);
+		}
 		
-		roles.add(role);
-		
-		newUser.roles = roles;
+		newUser.setRoles(roles);
 	    cms.sendEmail(user);
 		return userDao.save(newUser);
 	}
@@ -102,5 +104,11 @@ public class CartyUserServiceImpl implements UserService{
 	@Override
 	public long getUserId(String email) {
 		return findOne(email).getId();
+	}
+	
+	@Override
+	public List<User> findByRoles(long roleId){
+		Role r = new Role(roleId);
+		return userDao.findByRoles(r);
 	}
 }

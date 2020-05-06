@@ -16,11 +16,13 @@ import com.carty.data.VehiclePolicy;
 import com.carty.dataServices.BranchService;
 import com.carty.model.Role;
 import com.carty.model.User;
+import com.carty.model.UserDto;
 import com.carty.repo.AddressRepo;
 import com.carty.repo.BranchRepo;
 import com.carty.repo.HealthPDBRepo;
 import com.carty.repo.HealthPolicyRepo;
 import com.carty.repo.RoleRepo;
+import com.carty.service.CartyUserServiceImpl;
 
 @Service(value="branchService") 
 public class BranchServiceImpl implements BranchService{
@@ -36,7 +38,7 @@ public class BranchServiceImpl implements BranchService{
 	@Autowired 
 	RoleRepo rr;
 	@Autowired
-	UserDao udao;
+	CartyUserServiceImpl usi;
 	
 	public Branch getBranchById(long id) {
 		return br.findById(id).get();
@@ -70,45 +72,33 @@ public class BranchServiceImpl implements BranchService{
 		branch.setAddress(address);
 		return br.saveAndFlush(branch);
 	}
-	public User addUser(long userId, long branchId) {
+	
+	public User addUserById(long userId, long branchId) {
 		 Branch b = br.findById(branchId).get();
-		 User user = udao.findById(userId).get();
+			
+		 User user = usi.findById(userId);
 		 b.getUsers().add(user);
 		 br.saveAndFlush(b);
+		 
 		 return user;
 		
 	}
-	public User addUser(User user, long branchId) {
+	
+	public User addUser(UserDto userdto, long branchId) {
+				
 		Branch b = br.findById(branchId).get();
-		//set address; save it then retrieve it
-		Address a = user.address;
-		a = ar.saveAndFlush(a);
-		user.address = a;
+		User user =usi.save(userdto);
 		
-		//set healthPolicy; save it then retrieve it
-		/*HealthPDB h = hpdb.findById(1L).get();
-		HealthPolicy hp = user.getHpolicy(); 
-		hp.setDetails(h);
-		hp = hpr.saveAndFlush(hp);		
-		user.setHpolicy(hp);
-		*/
-		
-		Role r = rr.findById(1L).get();
-		user.roles = new ArrayList<>();
-		user.roles.add(r);
-		
-		List<User> list = b.getUsers();
-		if (list == null) {
-			list = new ArrayList<>();
-		}
-		user = udao.save(user);
-		
-		list.add(user);
-		b.setUsers(list);
-		
+		b.getUsers().add(user);
 		br.saveAndFlush(b);
 		
 		return user;
+	}
+	
+	public long getUserBranch(long uid) {//get USer Branch ID
+		User user = new User();
+		user.setId(uid);
+	   return br.findByUsers(user).getId();
 	}
 
 	@Override
@@ -118,56 +108,51 @@ public class BranchServiceImpl implements BranchService{
 		
 	}
 
+	public Branch findByManagerId(long manid){
+		return br.findByManId(manid);
+	}
+	
+	
+	/******************************************************/
+
 	@Override
 	public Branch getBranchByUser(User user) {
-	   return null;
-    }
-	
-	@Override
-	public Branch getBranchByManager(User manager){
+		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	@Override
-	public List<User> getAllEmployees(Branch branch){
-		return null;
-	}
-	
-	@Override
-	public List<HealthPDB> getAllHealthPolicies(){
-		return null;
-	}
-	
-	@Override
-	public List<VehiclePDB> getAllVehiclePolicies(){
-		return null;
-	}
-	
-    @Override
-	public List<HealthPolicy> getAllHealthCustomerPolicies(){
-    	return null;
-    }
-	
-	@Override
-	public List<VehiclePolicy> getAllVehicleCustomerPolicies(){
-		return null;
-	}
-	
-	
-	
-	@Override
-	public void update(long branchId){
-	
 	}
 
 	@Override
-	public void update(Address address) {
-		
-		
+	public Branch getBranchByManager(User manager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Branch createBranch(Address address, long managerId) {
+	public List<User> getAllEmployees(Branch branch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HealthPDB> getAllHealthPolicies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VehiclePDB> getAllVehiclePolicies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HealthPolicy> getAllHealthCustomerPolicies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VehiclePolicy> getAllVehicleCustomerPolicies() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -184,4 +169,21 @@ public class BranchServiceImpl implements BranchService{
 		return null;
 	}
 
+	@Override
+	public Branch createBranch(Address address, long managerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Address address) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(long branchId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

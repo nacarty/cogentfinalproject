@@ -4,14 +4,22 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.carty.data.InsuredVehicle;
+import com.carty.data.Make;
+import com.carty.data.Models;
 import com.carty.data.Vehicle;
 import com.carty.data.VehiclePDB;
 import com.carty.data.VehiclePolicy;
 import com.carty.model.User;
 import com.carty.repo.InsuredVehicleRepo;
+import com.carty.repo.MakeRepo;
+import com.carty.repo.ModelsRepo;
 import com.carty.repo.VehiclePDBRepo;
 import com.carty.repo.VehiclePolicyRepo;
 import com.carty.repo.VehicleRepo;
@@ -30,6 +38,10 @@ public class VehiclePolicyServiceImpl {
 	InsuredVehicleRepo ivr;
 	@Autowired
 	VehicleRepo vehr;
+	@Autowired
+	MakeRepo mr;
+	@Autowired
+	ModelsRepo modr;
 	
 	
 	public User addPolicyToUser(long userId, long vehiclePDBId, double insuredValue, InsuredVehicle iVeh) {
@@ -66,6 +78,16 @@ public class VehiclePolicyServiceImpl {
 		return usi.save(user);
 	}
 	
+	
+	public boolean toggleHealthPolicyApproval(long vpid, boolean status) {
+		
+		VehiclePolicy vp = vpr.findById(vpid).get();
+		vp.setApproved(status);
+		vp.setActive(status);
+		vp = vpr.saveAndFlush(vp);
+		return vp.isApproved();
+	}
+
 	public InsuredVehicle getInsuredVehicle(long id) {
 		
 		return ivr.findById(id).get();
@@ -138,31 +160,24 @@ public class VehiclePolicyServiceImpl {
 		
 	}
 	
-	/*
-	
-	public HealthPolicy viewUserPolicy(long userId) {
+	public List<Make> findAllMakes() {
 		
-		return usi.findById(userId).getHpolicy();
+		return mr.findAllMakes();
 	}
 	
-	public HealthPDB addNewPolicyType(String name, String description, double basePremium) {
-		
-		return hpdbr.saveAndFlush(new HealthPDB(name, description, basePremium));
-		
+	public List<Make> findMakes(){
+		return mr.findAll();
 	}
 	
-	public List<HealthPDB> viewPolicyTypes(){
-		return hpdbr.findAll();
+	public List<Models>findModelsByMake(String make) {
+		return modr.findByMake(make);
 	}
 	
-	public HealthPDB viewPolicyType(long id){
-		return hpdbr.findById(id).get();
+	public List<Vehicle> findByMakeAndModel(String make, String model){
+		return vehr.findByMakeAndModel(make, model);
 	}
 	
-	
-	
-	public HealthPDB updatePolicyType(HealthPDB hpdb){
-		return hpdbr.saveAndFlush(hpdb);
+	public List<Vehicle> findVehicleByModel(String model){
+		return vehr.findByModel(model);
 	}
-	*/
 }

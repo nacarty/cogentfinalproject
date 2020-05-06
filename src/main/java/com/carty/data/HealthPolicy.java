@@ -161,7 +161,7 @@ public class HealthPolicy implements Serializable{
 			this.costFactor = costFactor;
 		}
 
-		public boolean isApproved() {
+		public boolean getApproved() {
 			return approved;
 		}
 
@@ -169,7 +169,7 @@ public class HealthPolicy implements Serializable{
 			this.approved = approved;
 		}
 
-		public boolean isActive() {
+		public boolean getActive() {
 			return active;
 		}
 

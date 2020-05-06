@@ -25,11 +25,11 @@ public class HealthController {
 	HealthPolicyServiceImpl hpsi;
 	
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
-	public User addUserPolicy(@RequestParam("uid")  long uid, 
+	public HealthPolicy addUserPolicy(@RequestParam("uid")  long uid, 
 							  @RequestParam("hpid")  long hpid,
 							  @RequestParam("inval")  double inval) {
 	
-		return hpsi.addPolicyToUser(uid, hpid, inval);
+		return hpsi.addPolicyToUser(uid, hpid, inval).getHpolicy();
 	
 	}
 	
@@ -38,6 +38,11 @@ public class HealthController {
 		
 		return hpsi.removeUserPolicy(uid);
 		
+	}
+	@RequestMapping(value="approve", method=RequestMethod.GET)
+	public boolean toggleHealthPolicyApproval(@RequestParam("hpid") long hpid, @RequestParam("status") boolean status) {
+		
+		return hpsi.toggleHealthPolicyApproval(hpid, status);
 	}
 	
 	@RequestMapping(value = "/view/{uid}", method=RequestMethod.GET)
