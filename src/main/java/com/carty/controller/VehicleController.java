@@ -31,10 +31,10 @@ public class VehicleController {
 	
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public HealthPolicy addPolicyToUser(@RequestParam("uid") long userId, @RequestParam("vpid") long vehiclePDBId, 
+	public User addPolicyToUser(@RequestParam("uid") long userId, @RequestParam("vpid") long vehiclePDBId, 
 							    @RequestParam("inval") double insuredValue, @RequestBody InsuredVehicle iVeh) {
 
-		return vspi.addPolicyToUser(userId, vehiclePDBId, insuredValue, iVeh).getHpolicy();
+		return vspi.addPolicyToUser(userId, vehiclePDBId, insuredValue, iVeh);  //somehow I "was" returning a health policy here.
    }
 	
 	@RequestMapping(value="approve", method=RequestMethod.GET)
@@ -76,10 +76,10 @@ public class VehicleController {
 		return vspi.updateInsuredVehicle(inveh);
 	}
 	
-	@RequestMapping(value="/del", method=RequestMethod.DELETE)
-	public VehiclePolicy deletePolicy(@RequestParam("uid") long uid, @RequestParam("pid") long vpid) {
+	@RequestMapping(value="/del/{vpid}", method=RequestMethod.DELETE)
+	public VehiclePolicy deletePolicy(@PathVariable("vpid") long vpid) {
 	
-		return vspi.deletePolicy(uid, vpid);
+		return vspi.deletePolicy(vpid);
 	}
 	
 	@RequestMapping(value="/types", method=RequestMethod.GET)

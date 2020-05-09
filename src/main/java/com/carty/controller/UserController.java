@@ -37,13 +37,13 @@ public class UserController {
 		 return cartyUService.findByAgentid(uid);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_CLIENT')")
+	//@PreAuthorize("hasRole('ROLE_CLIENT')")
 	@RequestMapping(value = "/users", method=RequestMethod.GET)
 	public List<User> listUser(){
 		return cartyUService.findAll();
 	}
 	
-	@PreAuthorize("hasRole('ROLE_CLIENT')")
+	//@PreAuthorize("hasRole('ROLE_CLIENT')")
 	@RequestMapping(value = "/user/{id}", method=RequestMethod.GET)
 	public User getOne(@PathVariable(value = "id") Long id) {
 		return cartyUService.findById(id);
@@ -67,7 +67,7 @@ public class UserController {
 		return cartyUService.save(user);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_AGENT')")
+	//@PreAuthorize("hasRole('ROLE_AGENT')")
 	@RequestMapping(value = "/name", method=RequestMethod.GET)
 	List<User> findByFnameIgnoreCaseAndLnameIgnoreCase(@RequestParam("fname") String fname, @RequestParam("lname") String lname){
 		return cartyUService.findByFnameIgnoreCaseAndLnameIgnoreCase(fname, lname);
@@ -78,4 +78,11 @@ public class UserController {
 		
 		return cartyUService.findByRoles((long)rid);
 	}
+	
+	@RequestMapping(value = "/userdel/{uid}", method=RequestMethod.DELETE)
+	public User delete(@PathVariable("uid") long uid) {
+		
+		return cartyUService.delete(uid);
+	}
+	
 }

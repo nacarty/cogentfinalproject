@@ -12,7 +12,7 @@ public interface UserService{
 
 	    User save(UserDto user); //UserDto
 		List<User> findAll();
-		void delete(long id);
+		User delete(long id);
 		User findOne(String email);
 		long getUserId(String email);
 		User findById(Long id); //could be long instead of Long

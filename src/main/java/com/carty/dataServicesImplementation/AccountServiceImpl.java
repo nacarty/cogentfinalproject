@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.carty.data.Account;
 import com.carty.data.HealthPolicy;
 import com.carty.data.VehiclePolicy;
+import com.carty.log4j2.log4j2;
 import com.carty.repo.AccountRepo;
 import com.carty.repo.HealthPolicyRepo;
 import com.carty.service.CartyUserServiceImpl;
@@ -26,8 +27,8 @@ public class AccountServiceImpl {
 	HealthPolicyServiceImpl hpsi;
 	@Autowired
 	HealthPolicyRepo hpr;
-	
-	
+	@Autowired
+	log4j2 logger;
 	
 	public Account findById(long accid) { //whether Health or Vehicle -related accounts
 		return accr.findById(accid).get();
@@ -78,6 +79,7 @@ public class AccountServiceImpl {
 		accounts.add(acc);
 		hp.setAccounts(accounts);
 		
+		logger.doLog("Payment made on Health Policy #"+hPolicyId+" in the amount of "+payment);
 		hpr.saveAndFlush(hp);
 		return acc;
 	}
@@ -110,7 +112,7 @@ public class AccountServiceImpl {
 		hp.setAccounts(accounts);
 		
 		hpr.saveAndFlush(hp);
-		
+		logger.doLog("Payment made on Health Policy #"+hp.getId()+" in the amount of "+payment);
 		return acc;
 	}
 	
@@ -141,6 +143,7 @@ public class AccountServiceImpl {
 		vp.setAccounts(accounts);
 		
 		vpsi.updatePolicy(vp); 
+		logger.doLog("Payment made on Vehicle Policy #"+vPolicyId+" in the amount of "+payment);
 		return acc;
 	}
 	

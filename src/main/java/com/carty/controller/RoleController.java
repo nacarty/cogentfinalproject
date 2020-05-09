@@ -35,6 +35,12 @@ public class RoleController {
 		return rsi.deleteUserRoles(uid, rid);	
     }
 	
+	@RequestMapping(value = "/dela", method=RequestMethod.DELETE)
+	public User deleteAgent(@RequestParam("uid")  long uid, @RequestParam("newuid")  long newuid) {
+		
+		return rsi.deleteAgent(uid, newuid);
+	}
+	
 	@RequestMapping(value = "/all", method=RequestMethod.GET)
 	public List<Role> getAllRoles(){
 		return rsi.findAllRoles();

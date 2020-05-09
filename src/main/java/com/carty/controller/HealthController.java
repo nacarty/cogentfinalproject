@@ -34,7 +34,7 @@ public class HealthController {
 	}
 	
 	@RequestMapping(value = "/del/{uid}", method=RequestMethod.DELETE)
-	public User removeUserPolicy(@PathVariable(value="uid") long uid) {
+	public HealthPolicy removeUserPolicy(@PathVariable(value="uid") long uid) {
 		
 		return hpsi.removeUserPolicy(uid);
 		

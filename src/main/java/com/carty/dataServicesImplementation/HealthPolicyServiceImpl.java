@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.carty.data.Account;
 import com.carty.data.HealthPDB;
 import com.carty.data.HealthPolicy;
+import com.carty.log4j2.log4j2;
 import com.carty.model.User;
+import com.carty.repo.AccountRepo;
 import com.carty.repo.HealthPDBRepo;
 import com.carty.repo.HealthPolicyRepo;
 import com.carty.service.CartyUserServiceImpl;
@@ -21,6 +24,10 @@ public class HealthPolicyServiceImpl {
 	HealthPolicyRepo hpr;
 	@Autowired
 	CartyUserServiceImpl usi;
+	@Autowired
+	AccountRepo accr;
+	@Autowired
+	log4j2 logger;
 	
 	public User addPolicyToUser(long userId, long healthPDBId, double insuredValue) {
 		User user = usi.findById(userId);
@@ -28,16 +35,26 @@ public class HealthPolicyServiceImpl {
 		HealthPolicy hp = new HealthPolicy(insuredValue, hpdb);
 		hp = hpr.save(hp);
 		user.setHpolicy(hp);
+		logger.doLog("Health Policy #"+hp.toString()+" has been added to user "+user.toString());
 		return usi.save(user);
 		
 	}
 	
-	public User removeUserPolicy(long userId) {
+	public HealthPolicy removeUserPolicy(long userId) {
 		User user = usi.findById(userId);
 		HealthPolicy hp = user.getHpolicy();
-		user.setHpolicy(null);
 		hpr.delete(hp);
-		return usi.save(user);
+		
+		logger.doLog("Health Policy #"+hp.toString()+" has been removed from user "+user.toString());
+		/*may note be necessary because we used cascade all
+		List<Account> accs = hp.getAccounts();
+		accr.deleteAll(accs);
+		hpr.delete(hp); */
+		
+		user.setHpolicy(null);
+		usi.save(user);
+		
+		return hp;
 	}
 	
 	public HealthPolicy viewUserPolicy(long userId) {
@@ -55,8 +72,11 @@ public class HealthPolicyServiceImpl {
     	hp.setApproved(status);
     	hp.setActive(status);
     	hp = hpr.saveAndFlush(hp);
+    	
+    	logger.doLog("Health Policy #"+hPolicyId+" approval status has been set to "+status);
     	return hp.getApproved();
     }
+    
 	public HealthPDB addNewPolicyType(String name, String description, double basePremium) {
 		
 		return hpdbr.saveAndFlush(new HealthPDB(name, description, basePremium));

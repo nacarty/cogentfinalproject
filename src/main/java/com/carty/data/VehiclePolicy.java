@@ -56,7 +56,7 @@ public class VehiclePolicy implements Serializable{
     //@JsonBackReference //this was helpful in preventing infinite recursion in my retrieved json. However, removing the getVehiclePolicies in the VehiclePDB.java class also did it 
 	protected VehiclePDB details;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="veh_insured")
 	protected InsuredVehicle vehicle;
 	

@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.carty.data.Account;
 import com.carty.data.InsuredVehicle;
 import com.carty.data.Make;
 import com.carty.data.Models;
 import com.carty.data.Vehicle;
 import com.carty.data.VehiclePDB;
 import com.carty.data.VehiclePolicy;
+import com.carty.log4j2.log4j2;
 import com.carty.model.User;
+import com.carty.repo.AccountRepo;
 import com.carty.repo.InsuredVehicleRepo;
 import com.carty.repo.MakeRepo;
 import com.carty.repo.ModelsRepo;
@@ -42,7 +45,10 @@ public class VehiclePolicyServiceImpl {
 	MakeRepo mr;
 	@Autowired
 	ModelsRepo modr;
-	
+	@Autowired
+	AccountRepo accr;
+	@Autowired
+	log4j2 logger;
 	
 	public User addPolicyToUser(long userId, long vehiclePDBId, double insuredValue, InsuredVehicle iVeh) {
 		
@@ -75,6 +81,8 @@ public class VehiclePolicyServiceImpl {
 		List<VehiclePolicy> vpolicies = user.getVpolicies();
 		vpolicies.add(vp);
 		user.setVpolicies(vpolicies);
+		
+		logger.doLog("Vehicle Policy #"+vp.toString()+" has been added to user "+user.toString());
 		return usi.save(user);
 	}
 	
@@ -85,6 +93,8 @@ public class VehiclePolicyServiceImpl {
 		vp.setApproved(status);
 		vp.setActive(status);
 		vp = vpr.saveAndFlush(vp);
+		
+		logger.doLog("Vehicle Policy #"+vpid+" approval has been set to "+status);
 		return vp.isApproved();
 	}
 
@@ -128,20 +138,25 @@ public class VehiclePolicyServiceImpl {
 		return ivr.saveAndFlush(inveh);
 	}
 	
-	public VehiclePolicy deletePolicy(long userId, long vpid) {
+	public VehiclePolicy deletePolicy(long vpid) {
 		
-		User user = usi.findById(userId);
+		
 		VehiclePolicy vp = vpr.findById(vpid).get(); 
-		List<VehiclePolicy> list = user.getVpolicies();
-		InsuredVehicle inv = vp.getVehicle();
+		vpr.delete(vp);
 		
-		list.remove(vp);
-		user.setVpolicies(list);
-		usi.save(user);
+		/* MAY NOT BE NECESSARY because we used cascade all in POJO Entity
+		//delete the associated accounts
+		List<Account> accs = vp.getAccounts();
+		accr.deleteAll(accs);
 		
-		ivr.delete(inv);
-		vpr.delete(vp);	
+		//delete the associated insuredVehicle
+		InsuredVehicle iVeh = vp.getVehicle();
+		ivr.delete(iVeh);
 		
+		//now delete Vehicle policy
+		vpr.delete(vp);
+		*/
+		logger.doLog("Vehicle Policy #"+vpid+" has been deleted from user.");
 		return vp;
 	}
 	

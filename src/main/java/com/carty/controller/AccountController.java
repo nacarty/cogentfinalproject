@@ -18,8 +18,8 @@ import com.carty.dataServicesImplementation.VehiclePolicyServiceImpl;
 
 
 @CrossOrigin(origins="*", maxAge = 3600)
-@RestController
-@RequestMapping("/acc") 
+@RestController 
+@RequestMapping("/acc")  
 public class AccountController {
 
 	@Autowired
@@ -55,7 +55,4 @@ public class AccountController {
 	
 	
 }
-
-	
-
 

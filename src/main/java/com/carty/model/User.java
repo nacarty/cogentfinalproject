@@ -65,7 +65,7 @@ public class User implements Serializable{
 	                       inverseJoinColumns= {@JoinColumn(name="role_id", referencedColumnName="id")})
 	public List<Role> roles;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="hpolicy_id")
 	protected HealthPolicy hpolicy;
 	
@@ -90,6 +90,11 @@ public class User implements Serializable{
 	
 	public User(){
 
+	}
+	
+	public User(String fn, String ln) {
+		this.fname = fn;
+		this.fname = ln;
 	}
 
 	public User(String fname, String lname, String email, String SSN, String password, Address address, Date dob) {

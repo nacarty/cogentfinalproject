@@ -28,5 +28,70 @@
     "name": "spring.jpa.hibernate.naming_strategy",
     "type": "java.lang.String",
     "description": "A description for 'spring.jpa.hibernate.naming_strategy'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.appender.FILE",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.appender.FILE'"
+  },
+  {
+    "name": "log4j.appender.DB.URL",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.appender.DB.URL'"
+  },
+  {
+    "name": "log4j.appender.DB.driver",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.appender.DB.driver'"
+  },
+  {
+    "name": "log4j.appender.DB.password",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.appender.DB.password'"
+  },
+  {
+    "name": "log4j.appender.DB.user",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.appender.DB.user'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.rootLogger",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.rootLogger'"
+  },
+  {
+    "name": "log4j.appender.FILE.File",
+    "type": "java.lang.String",
+    "description": "A description for 'log4j.appender.FILE.File'"
   }
 ]}
